@@ -10,6 +10,7 @@ const carsRight = document.querySelectorAll(".car-right");
 let currentIndex = 76;
 const width = 9;
 let timerId;
+let winLose;
 
 function moveFrog(e) {
   squares[currentIndex].classList.remove("frog");
@@ -38,8 +39,6 @@ function autoMoveElements() {
   logsRight.forEach((logRight) => moveLogRight(logRight));
   carsLeft.forEach((carLeft) => moveCarLeft(carLeft));
   carsRight.forEach((carRight) => moveCarRight(carRight));
-  lose();
-  win();
 }
 
 function moveLogLeft(logLeft) {
@@ -130,6 +129,7 @@ function lose() {
   ) {
     resultDisplay.textContent = "You lose!";
     clearInterval(timerId);
+    clearInterval(winLose);
     squares[currentIndex].classList.remove("frog");
     document.removeEventListener("keyup", moveFrog);
   }
@@ -139,8 +139,13 @@ function win() {
   if (squares[currentIndex].classList.contains("ending-block")) {
     resultDisplay.textContent = "You Win!";
     clearInterval(timerId);
+    clearInterval(winLose);
     document.removeEventListener("keyup", moveFrog);
   }
 }
 
 timerId = setInterval(autoMoveElements, 1000);
+winLoseId = setInterval(() => {
+  lose();
+  win();
+}, 100);
