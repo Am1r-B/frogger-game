@@ -39,6 +39,7 @@ function autoMoveElements() {
   carsLeft.forEach((carLeft) => moveCarLeft(carLeft));
   carsRight.forEach((carRight) => moveCarRight(carRight));
   lose();
+  win();
 }
 
 function moveLogLeft(logLeft) {
@@ -130,6 +131,14 @@ function lose() {
     resultDisplay.textContent = "You lose!";
     clearInterval(timerId);
     squares[currentIndex].classList.remove("frog");
+    document.removeEventListener("keyup", moveFrog);
+  }
+}
+
+function win() {
+  if (squares[currentIndex].classList.contains("ending-block")) {
+    resultDisplay.textContent = "You Win!";
+    clearInterval(timerId);
     document.removeEventListener("keyup", moveFrog);
   }
 }
